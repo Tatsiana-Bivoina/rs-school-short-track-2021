@@ -16,9 +16,33 @@
  *   this.next = null;
  * }
  */
+function ListNode(x) {
+  this.value = x;
+  this.next = null;
+}
 
-function removeKFromList(/* l, k */) {
-  throw new Error('Not implemented');
+function removeKFromList(l, k) {
+  let nodeList = l;
+  let list = [];
+  const arr = [];
+  do {
+    if (nodeList.value !== k) {
+      arr.push(nodeList.value);
+    }
+    nodeList = nodeList.next;
+  } while (nodeList !== null);
+  list = arr.reverse().reduce((prev, current) => {
+    if (typeof prev === 'number' && typeof current === 'number') {
+      const nodePrev = new ListNode(prev);
+      const nodeCur = new ListNode(current);
+      nodeCur.next = nodePrev;
+      return nodeCur;
+    }
+    const node = new ListNode(current);
+    node.next = prev;
+    return node;
+  });
+  return list;
 }
 
 module.exports = removeKFromList;
